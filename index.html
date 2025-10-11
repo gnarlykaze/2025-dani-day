@@ -538,21 +538,28 @@
 <p id="coderMessage"></p>
 
 <script>
-  function typeWriter(text, elementId, speed) {
-    let i = 0;
-    function typing() {
-      if (i < text.length) {
-        document.getElementById(elementId).innerHTML += text.charAt(i);
+function typeWriter(text, elementId, speed) {
+  let i = 0;
+  function typing() {
+    if (i < text.length) {
+      const char = text.charAt(i);
+      // check for <br> tag
+      if (char === "<" && text.substring(i, i+4) === "<br>") {
+        document.getElementById(elementId).innerHTML += "<br>";
+        i += 4; // skip over the "<br>"
+      } else {
+        document.getElementById(elementId).innerHTML += char;
         i++;
-        setTimeout(typing, speed);
       }
+      setTimeout(typing, speed);
     }
-    typing();
   }
+  typing();
+}
 
-  setTimeout(() => {
-    typeWriter("✦ coded with love by tanishita ✦ <br> ✦ for dani ✦", "coderMessage", 80);
-  }, 8000);
+setTimeout(() => {
+  typeWriter("✦ coded with love by tanishita ✦ <br> ✦ for dani ✦", "coderMessage", 80);
+}, 8000);
 </script>
 
       <div class="image-button-container">
