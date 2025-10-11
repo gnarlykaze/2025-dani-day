@@ -543,14 +543,13 @@ function typeWriter(text, elementId, speed) {
   function typing() {
     if (i < text.length) {
       const char = text.charAt(i);
-      // check for <br> tag
-      if (char === "<" && text.substring(i, i+4) === "<br>") {
+      if (char === "\n") {
+        // insert a line break
         document.getElementById(elementId).innerHTML += "<br>";
-        i += 4; // skip over the "<br>"
       } else {
         document.getElementById(elementId).innerHTML += char;
-        i++;
       }
+      i++;
       setTimeout(typing, speed);
     }
   }
@@ -558,9 +557,10 @@ function typeWriter(text, elementId, speed) {
 }
 
 setTimeout(() => {
-  typeWriter("✦ coded with love by tanishita ✦ <br> ✦ for dani ✦", "coderMessage", 80);
+  typeWriter("✦ coded with love by tanishita ✦ \n ✦ for dani ✦", "coderMessage", 80);
 }, 8000);
 </script>
+
 
       <div class="image-button-container">
         <a href="dani2025letter.html" target="_blank">
