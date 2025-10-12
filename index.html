@@ -559,7 +559,14 @@ setTimeout(() => {
   typeWriter("✦ coded with love by tanishita ✦ \n ✦ for dani ✦", "coderMessage", 80);
 }, 8000);
 </script>
-
+ <audio id="bg-music" src="iseeu.mp3" autoplay loop></audio>
+          <script>
+        const music = document.getElementById("bg-music");
+        music.play().catch(() => 
+          document.body.addEventListener("click", () => music.play());
+        });
+      </script>
+        
 
       <div class="image-button-container">
         <a href="dani2025letter.html" target="_blank">
