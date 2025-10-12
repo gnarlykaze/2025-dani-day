@@ -561,19 +561,37 @@ setTimeout(() => {
 </script>
  <audio id="bg-music" src="iseeu.mp3" autoplay loop></audio>
 <audio id="bg-music" src="iseeu.mp3" loop></audio>
-<script>
-  const music = document.getElementById("bg-music");
+ <script>
+  window.addEventListener('load', () => {
+    const music = document.getElementById('bg-music');
+    const playPromise = music.play();
 
-  // Try to play immediately
-  music.play().catch(() => {
-    // If autoplay blocked, play after first click anywhere
-    const playOnClick = () => {
-      music.play();
-      document.body.removeEventListener("click", playOnClick);
-    };
-    document.body.addEventListener("click", playOnClick);
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        const btn = document.createElement('button');
+        btn.textContent = 'tap to play music :))';
+        Object.assign(btn.style, {
+          position: 'fixed',
+          bottom: '20px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          padding: '8px 14px',
+          border: 'none',
+          borderRadius: '10px',
+          background: '#ffcaf0',
+          cursor: 'pointer',
+          fontSize: '14px',
+          zIndex: 9999,
+        });
+        btn.onclick = () => {
+          music.play();
+          btn.remove();
+        };
+        document.body.appendChild(btn);
+      });
+    }
   });
-</script>
+  </script>
 
       <div class="image-button-container">
         <a href="dani2025letter.html" target="_blank">
