@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>💌 Heart Letter</title>
+  <title>💌 letter to dani</title>
   <style>
     body {
       background-color: #f7d9da;
@@ -26,7 +26,6 @@
 
     button {
       font-weight: 700;
-      font-style: normal;
       transition: all 0.2s linear;
       background-color: transparent;
       border: solid 2px #ff5757;
@@ -48,7 +47,7 @@
       display: none;
     }
 
-    /* Envelope animation template */
+    /* Envelope */
     #envelope {
       margin: 150px auto;
       position: relative;
@@ -58,6 +57,7 @@
       border-bottom-right-radius: 6px;
       background-color: #f9c5c8;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
     }
 
     .front {
@@ -95,6 +95,7 @@
       border-radius: 6px;
       box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
       transform: translateY(0px);
+      z-index: 2;
     }
 
     .letter:after {
@@ -162,19 +163,21 @@
       z-index: 2;
     }
 
+    /* Hearts appear from inside the envelope */
     .hearts {
       position: absolute;
-      top: 90px;
+      bottom: 30px;
       left: 0;
       right: 0;
-      z-index: 2;
+      z-index: 1;
+      overflow: visible;
+      pointer-events: none;
     }
 
     .heart {
       position: absolute;
-      bottom: 0;
-      right: 10%;
-      pointer-events: none;
+      left: 50%;
+      transform: translateX(-50%) scale(0.8);
       opacity: 0;
     }
 
@@ -182,15 +185,14 @@
     .heart:after {
       position: absolute;
       content: "";
-      left: 50px;
+      left: 25px;
       top: 0;
-      width: 50px;
-      height: 80px;
+      width: 25px;
+      height: 40px;
       background: #d00000;
       border-radius: 50px 50px 0 0;
       transform: rotate(-45deg);
       transform-origin: 0 100%;
-      pointer-events: none;
     }
 
     .heart:after {
@@ -199,23 +201,16 @@
       transform-origin: 100% 100%;
     }
 
-    @keyframes slideUp {
+    @keyframes rise {
       0% {
-        top: 0;
+        bottom: 30px;
         opacity: 1;
+        transform: translateX(-50%) scale(0.8);
       }
       100% {
-        top: -600px;
+        bottom: 250px;
         opacity: 0;
-      }
-    }
-
-    @keyframes sideSway {
-      0% {
-        margin-left: 0px;
-      }
-      100% {
-        margin-left: 50px;
+        transform: translateX(-50%) scale(1.2);
       }
     }
 
@@ -232,7 +227,7 @@
 <body>
   <!-- Password Section -->
   <div id="password-container">
-    <h2>Enter Password 💖</h2>
+    <h2>enter password 🤍</h2>
     <input type="password" id="password" placeholder="Enter password" />
     <button id="submit-password">Unlock</button>
     <p id="error-msg" style="color:red;"></p>
@@ -250,6 +245,8 @@
           <div class="words line3"></div>
           <div class="words line4"></div>
         </div>
+
+        <!-- Hearts inside the envelope -->
         <div class="hearts">
           <div class="heart a1"></div>
           <div class="heart a2"></div>
@@ -257,6 +254,7 @@
         </div>
       </div>
     </div>
+
     <div class="reset">
       <button id="open">Open</button>
       <button id="reset">Reset</button>
@@ -275,30 +273,34 @@
         document.getElementById("password-container").classList.add("hidden");
         document.getElementById("letter-container").classList.remove("hidden");
       } else {
-        document.getElementById("error-msg").innerText = "❌ Wrong password! Try again.";
+        document.getElementById("error-msg").innerText = "oh who is u?!";
       }
     });
 
-    // Envelope animation logic
+    // Envelope + hearts animation
     $(document).ready(function () {
       var envelope = $("#envelope");
       var btn_open = $("#open");
       var btn_reset = $("#reset");
+      var hearts = $(".heart");
 
       function open() {
         envelope.addClass("open").removeClass("close");
-        // Trigger hearts only once
-        $(".heart").each(function (i) {
+
+        // Trigger hearts rising only once per open
+        hearts.each(function (i) {
+          const delay = i * 300;
           $(this)
-            .css("animation", `slideUp ${4 + i * 2}s linear 1, sideSway ${2 + i}s ease-in-out 2 alternate`)
-            .css("animation-fill-mode", "forwards")
-            .css("opacity", "1");
+            .css({
+              opacity: "1",
+              animation: `rise ${3 + i}s ease-out ${delay}ms forwards`,
+            });
         });
       }
 
       function close() {
         envelope.addClass("close").removeClass("open");
-        $(".heart").css("opacity", "0").css("animation", "none");
+        hearts.css({ opacity: "0", animation: "none" });
       }
 
       btn_open.click(open);
@@ -308,4 +310,3 @@
   </script>
 </body>
 </html>
-
