@@ -294,39 +294,43 @@
   </div>
 
   <script>
-    // password gate
-    function checkPassword() {
-      const password = document.getElementById("password").value;
-      const correct = "dan"; // change this to your real password
-      const errorMsg = document.getElementById("error");
+  async function checkPassword() {
+    const password = document.getElementById("password").value;
+    const errorMsg = document.getElementById("error");
 
-      if (password === correct) {
+    // call your serverless API: /api/unlock
+    try {
+      const res = await fetch(`/api/unlock?password=${encodeURIComponent(password)}`, {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' }
+      });
+
+      // network or server might return non-JSON or error; handle that
+      if (!res.ok) {
+        errorMsg.textContent = "server error — try again";
+        errorMsg.style.display = "block";
+        return;
+      }
+
+      const data = await res.json();
+
+      if (data && data.success) {
+        // unlocked: hide lock screen, show envelope section
         document.getElementById("lock-screen").style.display = "none";
         document.getElementById("envelope-section").style.display = "block";
+        errorMsg.style.display = "none";
       } else {
+        // wrong password
+        errorMsg.textContent = "wrong password 😢";
         errorMsg.style.display = "block";
       }
+    } catch (err) {
+      console.error("Error calling /api/unlock:", err);
+      errorMsg.textContent = "network error — check server";
+      errorMsg.style.display = "block";
     }
-
-    // envelope animation
-    const envelope = document.getElementById("envelope");
-    const btnOpen = document.getElementById("open");
-    const btnReset = document.getElementById("reset");
-
-    function open() {
-      envelope.classList.add("open");
-      envelope.classList.remove("close");
-    }
-
-    function close() {
-      envelope.classList.add("close");
-      envelope.classList.remove("open");
-    }
-
-    envelope.addEventListener("click", open);
-    btnOpen.addEventListener("click", open);
-    btnReset.addEventListener("click", close);
-  </script>
+  }
+</script>
 
 </body>
 </html>
