@@ -12,7 +12,7 @@
       padding: 0;
     }
 
-    /* lock screen */
+    /* ---------------- PASSWORD SCREEN ---------------- */
     #lock-screen {
       display: flex;
       flex-direction: column;
@@ -20,12 +20,10 @@
       align-items: center;
       height: 100vh;
     }
-
     #lock-screen h1 {
       color: #b03a48;
       font-size: 2rem;
     }
-
     #lock-screen input {
       padding: 10px;
       border: 1px solid #aaa;
@@ -34,7 +32,6 @@
       width: 220px;
       text-align: center;
     }
-
     #lock-screen button {
       margin-top: 10px;
       background: #c87f7f;
@@ -46,19 +43,17 @@
       cursor: pointer;
       transition: 0.3s;
     }
-
     #lock-screen button:hover {
       background: #a95e5e;
       transform: scale(1.05);
     }
-
     #error {
       color: red;
       margin-top: 10px;
       display: none;
     }
 
-    /* envelope section (hidden until unlocked) */
+    /* ---------------- ENVELOPE SECTION ---------------- */
     #envelope-section {
       display: none;
     }
@@ -71,15 +66,10 @@
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
       background-color: #f9c5c8;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
 
-    .front {
-      position: absolute;
-      width: 0;
-      height: 0;
-      z-index: 3;
-    }
+    .front { position: absolute; width: 0; height: 0; z-index: 3; }
 
     .flap {
       border-left: 140px solid transparent;
@@ -107,7 +97,7 @@
       height: 90%;
       top: 5%;
       border-radius: 6px;
-      box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 2px 26px rgba(0,0,0,0.12);
       text-align: center;
       overflow: hidden;
       padding: 15px;
@@ -137,6 +127,7 @@
       z-index: 1;
     }
 
+    /* ---------------- HEARTS ---------------- */
     .hearts {
       position: absolute;
       top: 90px;
@@ -150,54 +141,32 @@
       bottom: 0;
       right: 10%;
       pointer-events: none;
+      opacity: 0;
     }
 
-    .heart:before,
-    .heart:after {
-      position: absolute;
-      content: "";
-      left: 50px;
-      top: 0;
-      width: 50px;
-      height: 80px;
-      background: #d00000;
-      border-radius: 50px 50px 0 0;
-      transform: rotate(-45deg);
-      transform-origin: 0 100%;
-      pointer-events: none;
+    .open .heart {
+      opacity: 1;
     }
 
-    .heart:after {
-      left: 0;
-      transform: rotate(45deg);
-      transform-origin: 100% 100%;
-    }
-
-    .a1 {
+    .open .a1 {
       left: 20%;
       transform: scale(0.6);
-      opacity: 1;
-      animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
-      animation-fill-mode: forwards;
-      animation-delay: 0.7s;
+      animation: slideUp 4s linear forwards, sideSway 2s ease-in-out 4 alternate;
+      animation-delay: 0.3s;
     }
 
-    .a2 {
+    .open .a2 {
       left: 55%;
       transform: scale(1);
-      opacity: 1;
-      animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate;
-      animation-fill-mode: forwards;
-      animation-delay: 0.7s;
+      animation: slideUp 5s linear forwards, sideSway 2s ease-in-out 2 alternate;
+      animation-delay: 0.6s;
     }
 
-    .a3 {
+    .open .a3 {
       left: 10%;
       transform: scale(0.8);
-      opacity: 1;
-      animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate;
-      animation-fill-mode: forwards;
-      animation-delay: 0.7s;
+      animation: slideUp 7s linear forwards, sideSway 2s ease-in-out 6 alternate;
+      animation-delay: 0.9s;
     }
 
     @keyframes slideUp {
@@ -210,10 +179,8 @@
       100% { margin-left: 50px; }
     }
 
-    .reset {
-      text-align: center;
-    }
-
+    /* ---------------- RESET BUTTONS ---------------- */
+    .reset { text-align: center; }
     .reset button {
       font-weight: 800;
       background-color: transparent;
@@ -226,12 +193,12 @@
       padding: 10px;
       cursor: pointer;
     }
-
     .reset button:hover {
       background-color: #fc9d9d;
       color: #a10000;
     }
 
+    /* ---------------- PLAYLIST BUTTON ---------------- */
     .playlist-btn {
       display: inline-block;
       background: #c87f7f;
@@ -242,6 +209,7 @@
       font-weight: bold;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       transition: 0.3s;
+      margin-top: 12px;
     }
 
     .playlist-btn:hover {
@@ -250,10 +218,9 @@
     }
   </style>
 </head>
-
 <body>
 
-  <!-- PASSWORD SCREEN -->
+  <!-- ---------------- PASSWORD SCREEN ---------------- -->
   <div id="lock-screen">
     <h1>🔒 enter password</h1>
     <input type="password" id="password" placeholder="enter here">
@@ -261,7 +228,7 @@
     <p id="error">wrong password 😢</p>
   </div>
 
-  <!-- ENVELOPE SECTION -->
+  <!-- ---------------- ENVELOPE SECTION ---------------- -->
   <div id="envelope-section">
     <div class="envlope-wrapper">
       <div id="envelope" class="close">
@@ -272,7 +239,7 @@
           <h2>dear you 💌</h2>
           <p>
             this is where your heartfelt message goes.<br>
-            the person who entered the right password gets to read it. 💖
+            only someone with the right password gets to read it 💖
           </p>
           <a href="YOUR_SPOTIFY_PLAYLIST_LINK" target="_blank" class="playlist-btn">
             🎵 open playlist
@@ -293,44 +260,52 @@
     </div>
   </div>
 
+  <!-- ---------------- SCRIPTS ---------------- -->
   <script>
-  async function checkPassword() {
-    const password = document.getElementById("password").value;
-    const errorMsg = document.getElementById("error");
+    // ---------------- PASSWORD ----------------
+    async function checkPassword() {
+      const password = document.getElementById("password").value;
+      const errorMsg = document.getElementById("error");
 
-    // call your serverless API: /api/unlock
-    try {
-      const res = await fetch(`/api/unlock?password=${encodeURIComponent(password)}`, {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' }
-      });
+      try {
+        const res = await fetch(`/api/unlock?password=${encodeURIComponent(password)}`);
+        const data = await res.json();
 
-      // network or server might return non-JSON or error; handle that
-      if (!res.ok) {
-        errorMsg.textContent = "server error — try again";
-        errorMsg.style.display = "block";
-        return;
-      }
-
-      const data = await res.json();
-
-      if (data && data.success) {
-        // unlocked: hide lock screen, show envelope section
-        document.getElementById("lock-screen").style.display = "none";
-        document.getElementById("envelope-section").style.display = "block";
-        errorMsg.style.display = "none";
-      } else {
-        // wrong password
-        errorMsg.textContent = "oh who is u?!";
+        if (data && data.success) {
+          document.getElementById("lock-screen").style.display = "none";
+          document.getElementById("envelope-section").style.display = "block";
+          errorMsg.style.display = "none";
+        } else {
+          errorMsg.textContent = "oh who is u?!";
+          errorMsg.style.display = "block";
+        }
+      } catch (err) {
+        console.error(err);
+        errorMsg.textContent = "network error — check server";
         errorMsg.style.display = "block";
       }
-    } catch (err) {
-      console.error("Error calling /api/unlock:", err);
-      errorMsg.textContent = "network error — check server";
-      errorMsg.style.display = "block";
     }
-  }
-</script>
 
+    // ---------------- ENVELOPE ANIMATION ----------------
+    document.addEventListener("DOMContentLoaded", function() {
+      const envelope = document.getElementById("envelope");
+      const btnOpen = document.getElementById("open");
+      const btnReset = document.getElementById("reset");
+
+      function open() {
+        envelope.classList.add("open");
+        envelope.classList.remove("close");
+      }
+
+      function close() {
+        envelope.classList.add("close");
+        envelope.classList.remove("open");
+      }
+
+      btnOpen.addEventListener("click", open);
+      btnReset.addEventListener("click", close);
+      envelope.addEventListener("click", open);
+    });
+  </script>
 </body>
 </html>
