@@ -2,14 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>a letter for u 💌</title>
+  <title>💌 a letter for you</title>
   <style>
     body {
       background-color: #f7d9da;
       font-family: "Georgia", serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Envelope design */
+    /* lock screen */
+    #lock-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #lock-screen h1 {
+      color: #b03a48;
+      font-size: 2rem;
+    }
+
+    #lock-screen input {
+      padding: 10px;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+      margin-top: 10px;
+      width: 220px;
+      text-align: center;
+    }
+
+    #lock-screen button {
+      margin-top: 10px;
+      background: #c87f7f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #lock-screen button:hover {
+      background: #a95e5e;
+      transform: scale(1.05);
+    }
+
+    #error {
+      color: red;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* envelope section (hidden until unlocked) */
+    #envelope-section {
+      display: none;
+    }
+
     #envelope {
       margin: 150px auto;
       position: relative;
@@ -57,6 +110,7 @@
       box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
       text-align: center;
       overflow: hidden;
+      padding: 15px;
     }
 
     .open .flap {
@@ -71,16 +125,16 @@
       z-index: 5;
     }
 
-    .close .letter {
-      transform: translateY(0px);
-      transition: transform 0.4s ease, z-index 1s;
-      z-index: 1;
-    }
-
     .open .letter {
       transform: translateY(-60px);
       transition: transform 0.4s 0.6s ease, z-index 0.6s;
       z-index: 2;
+    }
+
+    .close .letter {
+      transform: translateY(0px);
+      transition: transform 0.4s ease, z-index 1s;
+      z-index: 1;
     }
 
     .hearts {
@@ -119,21 +173,6 @@
       transform-origin: 100% 100%;
     }
 
-    .close .heart {
-      opacity: 0;
-      animation: none;
-    }
-
-    @keyframes slideUp {
-      0% { top: 0; }
-      100% { top: -600px; }
-    }
-
-    @keyframes sideSway {
-      0% { margin-left: 0px; }
-      100% { margin-left: 50px; }
-    }
-
     .a1 {
       left: 20%;
       transform: scale(0.6);
@@ -161,8 +200,14 @@
       animation-delay: 0.7s;
     }
 
-    .envlope-wrapper {
-      height: 380px;
+    @keyframes slideUp {
+      0% { top: 0; }
+      100% { top: -600px; }
+    }
+
+    @keyframes sideSway {
+      0% { margin-left: 0px; }
+      100% { margin-left: 50px; }
     }
 
     .reset {
@@ -175,7 +220,6 @@
       border: solid 2px #ff5757;
       border-radius: 4px;
       color: #ff5757;
-      display: inline-block;
       font-size: 14px;
       text-transform: uppercase;
       margin: 5px;
@@ -187,36 +231,6 @@
       background-color: #fc9d9d;
       color: #a10000;
     }
-
-    /* letter + password section */
-    #lock-screen, #letter-content {
-      padding: 20px;
-    }
-
-    #lock-screen input {
-      padding: 10px;
-      border: 1px solid #aaa;
-      border-radius: 8px;
-      margin-top: 10px;
-      width: 80%;
-    }
-
-    #lock-screen button {
-      margin-top: 10px;
-      background: #c87f7f;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    #lock-screen button:hover {
-      background: #a95e5e;
-    }
-
-    .hidden { display: none; }
 
     .playlist-btn {
       display: inline-block;
@@ -238,79 +252,81 @@
 </head>
 
 <body>
-  <div class="envlope-wrapper">
-    <div id="envelope" class="close">
-      <div class="front flap"></div>
-      <div class="front pocket"></div>
 
-      <div class="letter">
-        <!-- Password screen -->
-        <div id="lock-screen">
-          <h1>🔒 enter password</h1>
-          <input type="password" id="password" placeholder="enter here">
-          <button onclick="unlockLetter()">Unlock</button>
-          <p id="error" style="color:red; display:none;">who is u?! ❌</p>
-        </div>
+  <!-- PASSWORD SCREEN -->
+  <div id="lock-screen">
+    <h1>🔒 enter password</h1>
+    <input type="password" id="password" placeholder="enter here">
+    <button onclick="checkPassword()">Unlock</button>
+    <p id="error">wrong password 😢</p>
+  </div>
 
-        <!-- Hidden letter -->
-        <div id="letter-content" class="hidden">
-          <h1>dear dan,</h1>
+  <!-- ENVELOPE SECTION -->
+  <div id="envelope-section">
+    <div class="envlope-wrapper">
+      <div id="envelope" class="close">
+        <div class="front flap"></div>
+        <div class="front pocket"></div>
+
+        <div class="letter">
+          <h2>dear you 💌</h2>
           <p>
-            this is where my heartfelt letter goes.  
-            only someone who knows the password can see it. 💌
+            this is where your heartfelt message goes.<br>
+            the person who entered the right password gets to read it. 💖
           </p>
           <a href="YOUR_SPOTIFY_PLAYLIST_LINK" target="_blank" class="playlist-btn">
             🎵 open playlist
           </a>
         </div>
-      </div>
 
-      <div class="hearts">
-        <div class="heart a1"></div>
-        <div class="heart a2"></div>
-        <div class="heart a3"></div>
+        <div class="hearts">
+          <div class="heart a1"></div>
+          <div class="heart a2"></div>
+          <div class="heart a3"></div>
+        </div>
       </div>
+    </div>
+
+    <div class="reset">
+      <button id="open">Open</button>
+      <button id="reset">Reset</button>
     </div>
   </div>
 
-  <div class="reset">
-    <button id="open">Open</button>
-    <button id="reset">Reset</button>
-  </div>
-
   <script>
-    // envelope open/close animation
-    const envelope = document.getElementById('envelope');
-    const btnOpen = document.getElementById('open');
-    const btnReset = document.getElementById('reset');
+    // password gate
+    function checkPassword() {
+      const password = document.getElementById("password").value;
+      const correct = "dan"; // change this to your real password
+      const errorMsg = document.getElementById("error");
+
+      if (password === correct) {
+        document.getElementById("lock-screen").style.display = "none";
+        document.getElementById("envelope-section").style.display = "block";
+      } else {
+        errorMsg.style.display = "block";
+      }
+    }
+
+    // envelope animation
+    const envelope = document.getElementById("envelope");
+    const btnOpen = document.getElementById("open");
+    const btnReset = document.getElementById("reset");
 
     function open() {
-      envelope.classList.add('open');
-      envelope.classList.remove('close');
+      envelope.classList.add("open");
+      envelope.classList.remove("close");
     }
 
     function close() {
-      envelope.classList.add('close');
-      envelope.classList.remove('open');
+      envelope.classList.add("close");
+      envelope.classList.remove("open");
     }
 
-    envelope.addEventListener('click', open);
-    btnOpen.addEventListener('click', open);
-    btnReset.addEventListener('click', close);
-
-    // password unlock
-    async function unlockLetter() {
-      const pass = document.getElementById('password').value;
-      const res = await fetch(`/api/unlock?password=${encodeURIComponent(pass)}`);
-      const data = await res.json();
-
-      if (data.success) {
-        document.getElementById('lock-screen').style.display = 'none';
-        document.getElementById('letter-content').classList.remove('hidden');
-      } else {
-        document.getElementById('error').style.display = 'block';
-      }
-    }
+    envelope.addEventListener("click", open);
+    btnOpen.addEventListener("click", open);
+    btnReset.addEventListener("click", close);
   </script>
+
 </body>
 </html>
