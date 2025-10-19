@@ -10,6 +10,7 @@
       text-align: center;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
 
     /* ---------------- PASSWORD SCREEN ---------------- */
@@ -63,10 +64,11 @@
       position: relative;
       width: 280px;
       height: 180px;
+      background-color: #f9c5c8;
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
-      background-color: #f9c5c8;
       box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      overflow: hidden;
     }
 
     .front { position: absolute; width: 0; height: 0; z-index: 3; }
@@ -90,58 +92,80 @@
     }
 
     .letter {
-      position: relative;
-      background-color: #f9c5c8;
-      width: 90%;
-      margin: 0 auto;
-      height: 90%;
-      top: 5%;
+      position: absolute;
+      background-color: #fff8f8;
+      width: 85%;
+      height: 130px;
+      top: 45px;
+      left: 7.5%;
       border-radius: 6px;
-      box-shadow: 0 2px 26px rgba(0,0,0,0.12);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
       text-align: center;
       overflow: hidden;
       padding: 15px;
-    }
-
-    .open .flap {
-      transform: rotateX(180deg);
-      transition: transform 0.4s ease, z-index 0.6s;
+      transition: transform 0.5s ease;
       z-index: 1;
     }
 
-    .close .flap {
-      transform: rotateX(0deg);
-      transition: transform 0.4s 0.6s ease, z-index 1s;
-      z-index: 5;
-    }
-
     .open .letter {
-      transform: translateY(-60px);
-      transition: transform 0.4s 0.6s ease, z-index 0.6s;
+      transform: translateY(-120px);
       z-index: 2;
     }
 
     .close .letter {
       transform: translateY(0px);
-      transition: transform 0.4s ease, z-index 1s;
       z-index: 1;
+    }
+
+    .open .flap {
+      transform: rotateX(180deg);
+      transition: transform 0.5s ease;
+      z-index: 1;
+    }
+
+    .close .flap {
+      transform: rotateX(0deg);
+      transition: transform 0.5s ease;
+      z-index: 5;
     }
 
     /* ---------------- HEARTS ---------------- */
     .hearts {
       position: absolute;
-      top: 90px;
+      top: 80px;
       left: 0;
       right: 0;
-      z-index: 2;
+      z-index: 0;
+      pointer-events: none;
     }
 
     .heart {
       position: absolute;
-      bottom: 0;
-      right: 10%;
-      pointer-events: none;
+      width: 20px;
+      height: 20px;
+      background-color: #ff5b5b;
+      transform: rotate(45deg);
       opacity: 0;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff5b5b;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
     }
 
     .open .heart {
@@ -150,33 +174,28 @@
 
     .open .a1 {
       left: 20%;
-      transform: scale(0.6);
-      animation: slideUp 4s linear forwards, sideSway 2s ease-in-out 4 alternate;
+      transform: scale(0.8) rotate(45deg);
+      animation: floatUp 4s ease-out forwards;
       animation-delay: 0.3s;
     }
 
     .open .a2 {
       left: 55%;
-      transform: scale(1);
-      animation: slideUp 5s linear forwards, sideSway 2s ease-in-out 2 alternate;
+      transform: scale(1) rotate(45deg);
+      animation: floatUp 5s ease-out forwards;
       animation-delay: 0.6s;
     }
 
     .open .a3 {
       left: 10%;
-      transform: scale(0.8);
-      animation: slideUp 7s linear forwards, sideSway 2s ease-in-out 6 alternate;
+      transform: scale(0.6) rotate(45deg);
+      animation: floatUp 6s ease-out forwards;
       animation-delay: 0.9s;
     }
 
-    @keyframes slideUp {
-      0% { top: 0; }
-      100% { top: -600px; }
-    }
-
-    @keyframes sideSway {
-      0% { margin-left: 0px; }
-      100% { margin-left: 50px; }
+    @keyframes floatUp {
+      0% { top: 80px; opacity: 1; transform: rotate(45deg) translateY(0); }
+      100% { top: -220px; opacity: 0; transform: rotate(45deg) translateY(-200px); }
     }
 
     /* ---------------- RESET BUTTONS ---------------- */
@@ -309,3 +328,4 @@
   </script>
 </body>
 </html>
+
