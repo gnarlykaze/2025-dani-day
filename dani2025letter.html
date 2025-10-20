@@ -10,6 +10,7 @@
       text-align: center;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
 
     #password-container {
@@ -26,7 +27,6 @@
 
     button {
       font-weight: 700;
-      font-style: normal;
       transition: all 0.2s linear;
       background-color: transparent;
       border: solid 2px #ff5757;
@@ -48,7 +48,7 @@
       display: none;
     }
 
-    /* Envelope animation template */
+    /* Envelope */
     #envelope {
       margin: 150px auto;
       position: relative;
@@ -58,6 +58,7 @@
       border-bottom-right-radius: 6px;
       background-color: #f9c5c8;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      overflow: visible;
     }
 
     .front {
@@ -95,47 +96,8 @@
       border-radius: 6px;
       box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
       transform: translateY(0px);
-    }
-
-    .letter:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-image: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0) 25%,
-        rgba(239, 215, 239, 0.7) 55%,
-        #eed7ef 100%
-      );
-    }
-
-    .words {
-      position: absolute;
-      left: 10%;
-      width: 80%;
-      height: 14%;
-      background-color: #fdb7ba;
-    }
-
-    .words.line1 {
-      top: 15%;
-      width: 20%;
-      height: 7%;
-    }
-
-    .words.line2 {
-      top: 30%;
-    }
-
-    .words.line3 {
-      top: 50%;
-    }
-
-    .words.line4 {
-      top: 70%;
+      z-index: 2;
+      overflow: hidden;
     }
 
     .open .flap {
@@ -162,35 +124,41 @@
       z-index: 2;
     }
 
+    /* Hearts (inside envelope) */
     .hearts {
       position: absolute;
-      top: 90px;
+      bottom: 40px; /* inside the envelope */
       left: 0;
       right: 0;
-      z-index: 2;
+      z-index: 1;
+      overflow: visible;
+      pointer-events: none;
     }
 
     .heart {
       position: absolute;
       bottom: 0;
-      right: 10%;
-      pointer-events: none;
+      width: 20px;
+      height: 20px;
       opacity: 0;
+      transform: translate(-50%, 0) scale(0.8);
     }
 
     .heart:before,
     .heart:after {
-      position: absolute;
       content: "";
-      left: 50px;
+      position: absolute;
       top: 0;
-      width: 50px;
-      height: 80px;
+      width: 20px;
+      height: 32px;
       background: #d00000;
       border-radius: 50px 50px 0 0;
+    }
+
+    .heart:before {
+      left: 10px;
       transform: rotate(-45deg);
       transform-origin: 0 100%;
-      pointer-events: none;
     }
 
     .heart:after {
@@ -199,24 +167,21 @@
       transform-origin: 100% 100%;
     }
 
-    @keyframes slideUp {
+    @keyframes floatUp {
       0% {
-        top: 0;
+        transform: translateY(0) scale(0.8);
         opacity: 1;
       }
       100% {
-        top: -600px;
+        transform: translateY(-250px) scale(1.2);
         opacity: 0;
       }
     }
 
-    @keyframes sideSway {
-      0% {
-        margin-left: 0px;
-      }
-      100% {
-        margin-left: 50px;
-      }
+    @keyframes sway {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(25px); }
+      100% { transform: translateX(-25px); }
     }
 
     .envlope-wrapper {
@@ -250,13 +215,18 @@
           <div class="words line3"></div>
           <div class="words line4"></div>
         </div>
+
+        <!-- Hearts now properly placed INSIDE -->
         <div class="hearts">
-          <div class="heart a1"></div>
-          <div class="heart a2"></div>
-          <div class="heart a3"></div>
+          <div class="heart" style="left: 45%;"></div>
+          <div class="heart" style="left: 55%;"></div>
+          <div class="heart" style="left: 50%;"></div>
+          <div class="heart" style="left: 60%;"></div>
+          <div class="heart" style="left: 40%;"></div>
         </div>
       </div>
     </div>
+
     <div class="reset">
       <button id="open">Open</button>
       <button id="reset">Reset</button>
@@ -279,20 +249,21 @@
       }
     });
 
-    // Envelope animation logic
+    // Envelope + hearts animation
     $(document).ready(function () {
-      var envelope = $("#envelope");
-      var btn_open = $("#open");
-      var btn_reset = $("#reset");
+      const envelope = $("#envelope");
+      const btn_open = $("#open");
+      const btn_reset = $("#reset");
 
       function open() {
         envelope.addClass("open").removeClass("close");
-        // Trigger hearts only once
+
+        // trigger floating hearts only once
         $(".heart").each(function (i) {
+          const delay = i * 300;
           $(this)
-            .css("animation", `slideUp ${4 + i * 2}s linear 1, sideSway ${2 + i}s ease-in-out 2 alternate`)
-            .css("animation-fill-mode", "forwards")
-            .css("opacity", "1");
+            .css("opacity", "1")
+            .css("animation", `floatUp ${3 + i}s ease-out ${delay}ms forwards, sway 2s ease-in-out infinite alternate`);
         });
       }
 
@@ -308,4 +279,3 @@
   </script>
 </body>
 </html>
-
