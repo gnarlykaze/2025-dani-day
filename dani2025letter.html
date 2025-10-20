@@ -88,7 +88,7 @@
 
     .letter {
       position: relative;
-      background-color: #f9c5c8;
+      background-color: #fff;
       width: 90%;
       margin: 0 auto;
       height: 90%;
@@ -98,6 +98,29 @@
       transform: translateY(0px);
       z-index: 2;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .letter img {
+      width: 80%;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .letter img:hover {
+      transform: scale(1.05);
+    }
+
+    .caption {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #b03a48;
     }
 
     .open .flap {
@@ -124,10 +147,10 @@
       z-index: 2;
     }
 
-    /* Hearts (inside envelope) */
+    /* Hearts */
     .hearts {
       position: absolute;
-      bottom: 40px; /* inside the envelope */
+      bottom: 40px;
       left: 0;
       right: 0;
       z-index: 1;
@@ -168,28 +191,14 @@
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(0.8);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-250px) scale(1.2);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) scale(0.8); opacity: 1; }
+      100% { transform: translateY(-250px) scale(1.2); opacity: 0; }
     }
 
     @keyframes sway {
       0% { transform: translateX(0); }
       50% { transform: translateX(25px); }
       100% { transform: translateX(-25px); }
-    }
-
-    .envlope-wrapper {
-      height: 380px;
-    }
-
-    .reset {
-      text-align: center;
     }
   </style>
 </head>
@@ -209,14 +218,12 @@
       <div id="envelope" class="close">
         <div class="front flap"></div>
         <div class="front pocket"></div>
+
         <div class="letter">
-          <div class="words line1"></div>
-          <div class="words line2"></div>
-          <div class="words line3"></div>
-          <div class="words line4"></div>
+          <img src="YOUR_IMAGE_URL_HERE" alt="photo" id="letter-img" />
+          <div class="caption">📩 Tap the picture to read the letter</div>
         </div>
 
-        <!-- Hearts now properly placed INSIDE -->
         <div class="hearts">
           <div class="heart" style="left: 45%;"></div>
           <div class="heart" style="left: 55%;"></div>
@@ -258,7 +265,6 @@
       function open() {
         envelope.addClass("open").removeClass("close");
 
-        // trigger floating hearts only once
         $(".heart").each(function (i) {
           const delay = i * 300;
           $(this)
@@ -276,6 +282,12 @@
       btn_reset.click(close);
       envelope.click(open);
     });
+
+    // Image click -> redirect
+    document.getElementById("letter-img").addEventListener("click", () => {
+      window.open("YOUR_LINK_HERE", "_blank");
+    });
   </script>
 </body>
 </html>
+
