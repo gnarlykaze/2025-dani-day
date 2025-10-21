@@ -91,15 +91,15 @@
         height: 18px;
       }
       .candle-flame:nth-child(1) {
-        animation: candle-flame 2s 6.5s infinite;
+        animation: candle-flame 2s infinite;
         animation-play-state: paused;
       }
       .candle-flame:nth-child(2) {
-        animation: candle-flame 1.5s 6.5s infinite;
+        animation: candle-flame 1.5s infinite;
         animation-play-state: paused;
       }
       .candle-flame:nth-child(3) {
-        animation: candle-flame 1s 6.5s infinite;
+        animation: candle-flame 1s infinite;
         animation-play-state: paused;
       }
       .candle-flame:nth-child(4) {
@@ -137,7 +137,7 @@
 #carrot-toppings {
   opacity: 1; /* don’t fade in, just fall */
   transform: translateY(-600px); /* starts way above screen */
-  animation: carrotsFall 0.7s 5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation: carrotsFall 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   animation-play-state: paused;
 }
 
@@ -154,19 +154,19 @@
       }
       #carrot-left {
   transform: translateY(-650px);
-  animation: carrotFallLeft 0.8s 5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation: carrotFallLeft 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   animation-play-state: paused;
 }
 
 #carrot-middle {
   transform: translateY(-680px);
-  animation: carrotFallMiddle 0.85s 5.05s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation: carrotFallMiddle 0.85s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   animation-play-state: paused;
 }
 
 #carrot-right {
   transform: translateY(-620px);
-  animation: carrotFallRight 0.75s 5.1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation: carrotFallRight 0.75s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   animation-play-state: paused;
 }
 
@@ -609,14 +609,12 @@ setTimeout(() => {
         </a>
         <div class="image-caption">tap on this tuktuki!</div>
       </div>
-<script>
-window.addEventListener('load', () => {
+<script>window.addEventListener('load', () => {
   const cake = document.querySelector('.cake');
   const carrotIds = ['carrot-toppings', 'carrot-left', 'carrot-middle', 'carrot-right'];
   const carrots = carrotIds.map(id => document.getElementById(id));
   const flames = document.querySelectorAll('.candle-flame');
 
-  // Function for sparkles
   function createSparkles(count) {
     for (let i = 0; i < count; i++) {
       const sparkle = document.createElement("div");
@@ -628,7 +626,6 @@ window.addEventListener('load', () => {
     }
   }
 
-  // Function for confetti (same as your existing)
   function launchConfetti() {
     for (let i = 0; i < 50; i++) {
       const confetti = document.createElement("div");
@@ -649,13 +646,11 @@ window.addEventListener('load', () => {
     }
   }
 
-  // Function for typewriter
   function typeWriter(text, elementId, speed) {
     let i = 0;
     function typing() {
       if (i < text.length) {
-        const char = text.charAt(i);
-        document.getElementById(elementId).innerHTML += char === "\n" ? "<br>" : char;
+        document.getElementById(elementId).innerHTML += text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
         i++;
         setTimeout(typing, speed);
       }
@@ -663,11 +658,12 @@ window.addEventListener('load', () => {
     typing();
   }
 
-  // 1️⃣ Start cake drop
+  // 1️⃣ Start cake animation
   cake.style.animationPlayState = 'running';
 
-  // 2️⃣ After cake finishes, drop carrots
+  // 2️⃣ When cake finishes
   cake.addEventListener('animationend', () => {
+    // 2a️⃣ Start carrot animations immediately
     carrots.forEach(el => el.style.animationPlayState = 'running');
 
     // Wait for longest carrot animation
@@ -678,17 +674,16 @@ window.addEventListener('load', () => {
       // 3️⃣ Start candle flames
       flames.forEach(el => el.style.animationPlayState = 'running');
 
-      // 4️⃣ Confetti, sparkles, and typewriter after small delay
+      // 4️⃣ Confetti, sparkles, typewriter text
       setTimeout(() => {
         launchConfetti();
         createSparkles(20);
         typeWriter("✦ coded with love by tanishita ✦ \n ✦ for dani ✦", "coderMessage", 80);
-      }, 500); // 0.5s delay for candle visibility
+      }, 500); // tiny delay so flames appear first
     }, maxCarrotTime);
   });
 });
 </script>
-
 
 
   </body>
