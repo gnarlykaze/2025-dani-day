@@ -145,6 +145,47 @@
       transition: transform 0.4s 0.6s ease, z-index 0.6s;
       z-index: 2;
     }
+    @media screen and (max-width: 480px) {
+  #envelope {
+    width: 220px;
+    height: 140px;
+    margin: 100px auto 20px auto;
+  }
+
+  .flap {
+    border-left: 110px solid transparent;
+    border-right: 110px solid transparent;
+    border-top: 78px solid #a444ff;
+    border-bottom: 70px solid transparent;
+  }
+
+  .pocket {
+    border-left: 110px solid #ca9af7;
+    border-right: 110px solid #ca9af7;
+    border-bottom: 70px solid #c28df5;
+    border-top: 70px solid transparent;
+  }
+
+  .letter {
+    width: 85%;
+    height: 85%;
+    top: 5%;
+  }
+
+  #letter-photo {
+    width: 30%; 
+  }
+
+  #photo-caption {
+    font-size: 12px; 
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 12px;
+    margin-left: 5px;
+  }
+}
 
   </style>
 </head>
