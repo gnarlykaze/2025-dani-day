@@ -151,15 +151,9 @@
     height: 140px;
     margin: 100px auto 20px auto;
   }
- .close .letter {
-    transform: translateY(-48px); 
-  }
-  
-  .open .letter {
-    transform: translateY(-48px);
-  }
       .close .letter, .open .letter {
-  transition: transform 0.35s ease, z-index 0.6s;
+   transform: translate3d(0,-48px,0);
+  transition: transform 0.35s ease, z-index 0s;
 }
   .flap {
     border-left: 110px solid transparent;
