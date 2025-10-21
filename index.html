@@ -59,6 +59,7 @@
         transform: translateY(-300px);
         backface-visibility: hidden;
         animation: in 500ms 6s ease-out forwards;
+        animation-play-state: paused;
       }
       .cake:after,
       .cake:before {
@@ -91,18 +92,23 @@
       }
       .candle-flame:nth-child(1) {
         animation: candle-flame 2s 6.5s infinite;
+        animation-play-state: paused;
       }
       .candle-flame:nth-child(2) {
         animation: candle-flame 1.5s 6.5s infinite;
+        animation-play-state: paused;
       }
       .candle-flame:nth-child(3) {
         animation: candle-flame 1s 6.5s infinite;
+        animation-play-state: paused;
       }
       .candle-flame:nth-child(4) {
         animation: candle-flame 0.5s 6.5s infinite;
+        animation-play-state: paused;
       }
       .candle-flame:nth-child(5) {
         animation: candle-flame 0.2s 6.5s infinite;
+        animation-play-state: paused;
       }
 
       /* ============================================== Animation Fire
@@ -132,6 +138,7 @@
   opacity: 1; /* don’t fade in, just fall */
   transform: translateY(-600px); /* starts way above screen */
   animation: carrotsFall 0.7s 5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation-play-state: paused;
 }
 
 @keyframes carrotsFall {
@@ -148,16 +155,19 @@
       #carrot-left {
   transform: translateY(-650px);
   animation: carrotFallLeft 0.8s 5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation-play-state: paused;
 }
 
 #carrot-middle {
   transform: translateY(-680px);
   animation: carrotFallMiddle 0.85s 5.05s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation-play-state: paused;
 }
 
 #carrot-right {
   transform: translateY(-620px);
   animation: carrotFallRight 0.75s 5.1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation-play-state: paused;
 }
 
 @keyframes carrotFallLeft {
@@ -599,5 +609,27 @@ setTimeout(() => {
         </a>
         <div class="image-caption">tap on this tuktuki!</div>
       </div>
+<script>
+window.addEventListener('load', () => {
+
+  document.querySelectorAll('.cake').forEach(el => {
+    el.style.animationPlayState = 'running';
+  });
+
+ 
+  const carrotIds = ['carrot-toppings', 'carrot-left', 'carrot-middle', 'carrot-right'];
+  carrotIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.animationPlayState = 'running';
+  });
+
+ 
+  document.querySelectorAll('.candle-flame').forEach(el => {
+    el.style.animationPlayState = 'running';
+  });
+});
+</script>
+
+
   </body>
 </html>
