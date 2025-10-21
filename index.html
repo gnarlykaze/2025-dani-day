@@ -91,24 +91,19 @@
         height: 18px;
       }
       .candle-flame:nth-child(1) {
-        animation: candle-flame 2s infinite;
-        animation-play-state: paused;
+        animation: candle-flame 2s 6.5s infinite;
       }
       .candle-flame:nth-child(2) {
-        animation: candle-flame 1.5s infinite;
-        animation-play-state: paused;
+        animation: candle-flame 1.5s 6.5s infinite;
       }
       .candle-flame:nth-child(3) {
-        animation: candle-flame 1s infinite;
-        animation-play-state: paused;
+        animation: candle-flame 1s 6.5s infinite;
       }
       .candle-flame:nth-child(4) {
         animation: candle-flame 0.5s 6.5s infinite;
-        animation-play-state: paused;
       }
       .candle-flame:nth-child(5) {
         animation: candle-flame 0.2s 6.5s infinite;
-        animation-play-state: paused;
       }
 
       /* ============================================== Animation Fire
@@ -137,7 +132,7 @@
 #carrot-toppings {
   opacity: 1; /* don’t fade in, just fall */
   transform: translateY(-600px); /* starts way above screen */
-  animation: carrotsFall 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation: carrotsFall 0.7s 5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   animation-play-state: paused;
 }
 
@@ -154,19 +149,19 @@
       }
       #carrot-left {
   transform: translateY(-650px);
-  animation: carrotFallLeft 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation: carrotFallLeft 0.8s 5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   animation-play-state: paused;
 }
 
 #carrot-middle {
   transform: translateY(-680px);
-  animation: carrotFallMiddle 0.85s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation: carrotFallMiddle 0.85s 5.05s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   animation-play-state: paused;
 }
 
 #carrot-right {
   transform: translateY(-620px);
-  animation: carrotFallRight 0.75s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation: carrotFallRight 0.75s 5.1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   animation-play-state: paused;
 }
 
@@ -609,82 +604,22 @@ setTimeout(() => {
         </a>
         <div class="image-caption">tap on this tuktuki!</div>
       </div>
-<script>window.addEventListener('load', () => {
-  const cake = document.querySelector('.cake');
+        <script>
+window.addEventListener('load', () => {
+  // start cake animation
+  document.querySelectorAll('.cake').forEach(el => {
+    el.style.animationPlayState = 'running';
+  });
+
+  // start carrot animations
   const carrotIds = ['carrot-toppings', 'carrot-left', 'carrot-middle', 'carrot-right'];
-  const carrots = carrotIds.map(id => document.getElementById(id));
-  const flames = document.querySelectorAll('.candle-flame');
-
-  function createSparkles(count) {
-    for (let i = 0; i < count; i++) {
-      const sparkle = document.createElement("div");
-      sparkle.classList.add("sparkle");
-      sparkle.style.top = `${Math.random() * window.innerHeight}px`;
-      sparkle.style.left = `${Math.random() * window.innerWidth}px`;
-      sparkle.style.animationDelay = `${Math.random() * 5}s`;
-      document.body.appendChild(sparkle);
-    }
-  }
-
-  function launchConfetti() {
-    for (let i = 0; i < 50; i++) {
-      const confetti = document.createElement("div");
-      confetti.classList.add("confetti-piece");
-      confetti.style.setProperty("--tx", `${Math.random() * 400 - 200}px`);
-      confetti.style.setProperty("--ty", `${500 + Math.random() * 200}px`);
-      confetti.style.setProperty("--rot", `${Math.random() * 720 - 360}deg`);
-      confetti.style.left = `${Math.random() * window.innerWidth}px`;
-      confetti.style.top = `0px`;
-      const colors = ["#FF6B6B", "#FFD93D", "#6BCB77", "#4D96FF", "#FF922B"];
-      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      const duration = 2 + Math.random() * 2;
-      const delay = Math.random() * 0.5;
-      confetti.style.animationDuration = `${duration}s`;
-      confetti.style.animationDelay = `${delay}s`;
-      document.body.appendChild(confetti);
-      setTimeout(() => confetti.remove(), (duration + delay) * 1000);
-    }
-  }
-
-  function typeWriter(text, elementId, speed) {
-    let i = 0;
-    function typing() {
-      if (i < text.length) {
-        document.getElementById(elementId).innerHTML += text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
-        i++;
-        setTimeout(typing, speed);
-      }
-    }
-    typing();
-  }
-
-  // 1️⃣ Start cake animation
-  cake.style.animationPlayState = 'running';
-
-  // 2️⃣ When cake finishes
-  cake.addEventListener('animationend', () => {
-    // 2a️⃣ Start carrot animations immediately
-    carrots.forEach(el => el.style.animationPlayState = 'running');
-
-    // Wait for longest carrot animation
-    const carrotDurations = [0.7, 0.8, 0.85, 0.75]; // seconds
-    const maxCarrotTime = Math.max(...carrotDurations) * 1000;
-
-    setTimeout(() => {
-      // 3️⃣ Start candle flames
-      flames.forEach(el => el.style.animationPlayState = 'running');
-
-      // 4️⃣ Confetti, sparkles, typewriter text
-      setTimeout(() => {
-        launchConfetti();
-        createSparkles(20);
-        typeWriter("✦ coded with love by tanishita ✦ \n ✦ for dani ✦", "coderMessage", 80);
-      }, 500); // tiny delay so flames appear first
-    }, maxCarrotTime);
+  carrotIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.animationPlayState = 'running';
   });
 });
 </script>
 
-
   </body>
 </html>
+
