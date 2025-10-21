@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>💌 Heart Letter</title>
+  <title>letter</title>
   <style>
     body {
-      background-color: #f7d9da;
+      background-color: #e4cbff;
       font-family: "Poppins", sans-serif;
       text-align: center;
       margin: 0;
@@ -29,9 +29,9 @@
       font-weight: 700;
       transition: all 0.2s linear;
       background-color: transparent;
-      border: solid 2px #ff5757;
+      border: solid 2px #940063;
       border-radius: 4px;
-      color: #ff5757;
+      color: #940063;
       font-size: 14px;
       text-transform: uppercase;
       margin-left: 10px;
@@ -40,8 +40,8 @@
     }
 
     button:hover {
-      background-color: #fc9d9d;
-      color: #a10000;
+      background-color: #f186ff;
+      color: #af36a7;
     }
 
     .hidden {
@@ -56,7 +56,7 @@
       height: 180px;
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
-      background-color: #f9c5c8;
+      background-color: #bd76ff;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       overflow: visible;
     }
@@ -72,15 +72,15 @@
       border-left: 140px solid transparent;
       border-right: 140px solid transparent;
       border-bottom: 82px solid transparent;
-      border-top: 98px solid #ff3333;
+      border-top: 98px solid #a444ff;
       transform-origin: top;
       pointer-events: none;
     }
 
     .pocket {
-      border-left: 140px solid #ff9999;
-      border-right: 140px solid #ff9999;
-      border-bottom: 90px solid #fd8787;
+      border-left: 140px solid #ca9af7;
+      border-right: 140px solid #ca9af7;
+      border-bottom: 90px solid #c28df5;
       border-top: 90px solid transparent;
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
@@ -88,7 +88,7 @@
 
     .letter {
       position: relative;
-      background-color: #f9c5c8;
+      background-color: #ffbeff;
       width: 90%;
       margin: 0 auto;
       height: 90%;
@@ -99,6 +99,25 @@
       z-index: 2;
       overflow: hidden;
     }
+    .letter-photo {
+  width: 80%;
+  border-radius: 8px;
+  margin-top: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.letter-photo:hover {
+  transform: scale(1.05);
+}
+
+.caption {
+  font-size: 13px;
+  color: #940063;
+  margin-top: 10px;
+  font-weight: 600;
+}
 
     .open .flap {
       transform: rotateX(180deg);
@@ -124,80 +143,13 @@
       z-index: 2;
     }
 
-    /* Hearts (inside envelope) */
-    .hearts {
-      position: absolute;
-      bottom: 40px; /* inside the envelope */
-      left: 0;
-      right: 0;
-      z-index: 1;
-      overflow: visible;
-      pointer-events: none;
-    }
-
-    .heart {
-      position: absolute;
-      bottom: 0;
-      width: 20px;
-      height: 20px;
-      opacity: 0;
-      transform: translate(-50%, 0) scale(0.8);
-    }
-
-    .heart:before,
-    .heart:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      width: 20px;
-      height: 32px;
-      background: #d00000;
-      border-radius: 50px 50px 0 0;
-    }
-
-    .heart:before {
-      left: 10px;
-      transform: rotate(-45deg);
-      transform-origin: 0 100%;
-    }
-
-    .heart:after {
-      left: 0;
-      transform: rotate(45deg);
-      transform-origin: 100% 100%;
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(0.8);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-250px) scale(1.2);
-        opacity: 0;
-      }
-    }
-
-    @keyframes sway {
-      0% { transform: translateX(0); }
-      50% { transform: translateX(25px); }
-      100% { transform: translateX(-25px); }
-    }
-
-    .envlope-wrapper {
-      height: 380px;
-    }
-
-    .reset {
-      text-align: center;
-    }
   </style>
 </head>
 
 <body>
   <!-- Password Section -->
   <div id="password-container">
-    <h2>Enter Password 💖</h2>
+    <h2>enter password 🤍</h2>
     <input type="password" id="password" placeholder="Enter password" />
     <button id="submit-password">Unlock</button>
     <p id="error-msg" style="color:red;"></p>
@@ -205,25 +157,19 @@
 
   <!-- Letter Section -->
   <div id="letter-container" class="hidden">
-    <div class="envlope-wrapper">
+    <div class="envelope-wrapper">
       <div id="envelope" class="close">
         <div class="front flap"></div>
         <div class="front pocket"></div>
-        <div class="letter">
-          <div class="words line1"></div>
-          <div class="words line2"></div>
-          <div class="words line3"></div>
-          <div class="words line4"></div>
-        </div>
+     <div class="letter">
+  <a href="https://google.com" target="_blank">
+    <img src="passionfruit juice.png" class="letter-photo" />
+  </a>
+  <p class="caption">tap this to read the letter 🌷</p>
+</div>
 
-        <!-- Hearts now properly placed INSIDE -->
-        <div class="hearts">
-          <div class="heart" style="left: 45%;"></div>
-          <div class="heart" style="left: 55%;"></div>
-          <div class="heart" style="left: 50%;"></div>
-          <div class="heart" style="left: 60%;"></div>
-          <div class="heart" style="left: 40%;"></div>
-        </div>
+
+        <div style="height: 50px;"></div>
       </div>
     </div>
 
@@ -245,7 +191,7 @@
         document.getElementById("password-container").classList.add("hidden");
         document.getElementById("letter-container").classList.remove("hidden");
       } else {
-        document.getElementById("error-msg").innerText = "❌ Wrong password! Try again.";
+        document.getElementById("error-msg").innerText = "oh who is u?!";
       }
     });
 
@@ -257,19 +203,10 @@
 
       function open() {
         envelope.addClass("open").removeClass("close");
-
-        // trigger floating hearts only once
-        $(".heart").each(function (i) {
-          const delay = i * 300;
-          $(this)
-            .css("opacity", "1")
-            .css("animation", `floatUp ${3 + i}s ease-out ${delay}ms forwards, sway 2s ease-in-out infinite alternate`);
-        });
       }
 
       function close() {
         envelope.addClass("close").removeClass("open");
-        $(".heart").css("opacity", "0").css("animation", "none");
       }
 
       btn_open.click(open);
