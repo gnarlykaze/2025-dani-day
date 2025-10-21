@@ -611,24 +611,84 @@ setTimeout(() => {
       </div>
 <script>
 window.addEventListener('load', () => {
-
-  document.querySelectorAll('.cake').forEach(el => {
-    el.style.animationPlayState = 'running';
-  });
-
- 
+  const cake = document.querySelector('.cake');
   const carrotIds = ['carrot-toppings', 'carrot-left', 'carrot-middle', 'carrot-right'];
-  carrotIds.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.animationPlayState = 'running';
-  });
+  const carrots = carrotIds.map(id => document.getElementById(id));
+  const flames = document.querySelectorAll('.candle-flame');
 
- 
-  document.querySelectorAll('.candle-flame').forEach(el => {
-    el.style.animationPlayState = 'running';
+  // Function for sparkles
+  function createSparkles(count) {
+    for (let i = 0; i < count; i++) {
+      const sparkle = document.createElement("div");
+      sparkle.classList.add("sparkle");
+      sparkle.style.top = `${Math.random() * window.innerHeight}px`;
+      sparkle.style.left = `${Math.random() * window.innerWidth}px`;
+      sparkle.style.animationDelay = `${Math.random() * 5}s`;
+      document.body.appendChild(sparkle);
+    }
+  }
+
+  // Function for confetti (same as your existing)
+  function launchConfetti() {
+    for (let i = 0; i < 50; i++) {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti-piece");
+      confetti.style.setProperty("--tx", `${Math.random() * 400 - 200}px`);
+      confetti.style.setProperty("--ty", `${500 + Math.random() * 200}px`);
+      confetti.style.setProperty("--rot", `${Math.random() * 720 - 360}deg`);
+      confetti.style.left = `${Math.random() * window.innerWidth}px`;
+      confetti.style.top = `0px`;
+      const colors = ["#FF6B6B", "#FFD93D", "#6BCB77", "#4D96FF", "#FF922B"];
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      const duration = 2 + Math.random() * 2;
+      const delay = Math.random() * 0.5;
+      confetti.style.animationDuration = `${duration}s`;
+      confetti.style.animationDelay = `${delay}s`;
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), (duration + delay) * 1000);
+    }
+  }
+
+  // Function for typewriter
+  function typeWriter(text, elementId, speed) {
+    let i = 0;
+    function typing() {
+      if (i < text.length) {
+        const char = text.charAt(i);
+        document.getElementById(elementId).innerHTML += char === "\n" ? "<br>" : char;
+        i++;
+        setTimeout(typing, speed);
+      }
+    }
+    typing();
+  }
+
+  // 1️⃣ Start cake drop
+  cake.style.animationPlayState = 'running';
+
+  // 2️⃣ After cake finishes, drop carrots
+  cake.addEventListener('animationend', () => {
+    carrots.forEach(el => el.style.animationPlayState = 'running');
+
+    // Wait for longest carrot animation
+    const carrotDurations = [0.7, 0.8, 0.85, 0.75]; // seconds
+    const maxCarrotTime = Math.max(...carrotDurations) * 1000;
+
+    setTimeout(() => {
+      // 3️⃣ Start candle flames
+      flames.forEach(el => el.style.animationPlayState = 'running');
+
+      // 4️⃣ Confetti, sparkles, and typewriter after small delay
+      setTimeout(() => {
+        launchConfetti();
+        createSparkles(20);
+        typeWriter("✦ coded with love by tanishita ✦ \n ✦ for dani ✦", "coderMessage", 80);
+      }, 500); // 0.5s delay for candle visibility
+    }, maxCarrotTime);
   });
 });
 </script>
+
 
 
   </body>
