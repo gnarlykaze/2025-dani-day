@@ -48,7 +48,6 @@
       display: none;
     }
 
-    /* Envelope */
     #envelope {
       margin: 150px auto;
       position: relative;
@@ -100,7 +99,7 @@
       overflow: hidden;
     }
     .letter-photo {
-  width: 40%;
+  width: 20%;
   border-radius: 8px;
   margin-top: 15px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -147,7 +146,7 @@
 </head>
 
 <body>
-  <!-- Password Section -->
+ 
   <div id="password-container">
     <h2>enter password 🤍</h2>
     <input type="password" id="password" placeholder="Enter password" />
@@ -155,7 +154,7 @@
     <p id="error-msg" style="color:red;"></p>
   </div>
 
-  <!-- Letter Section -->
+
   <div id="letter-container" class="hidden">
     <div class="envelope-wrapper">
       <div id="envelope" class="close">
@@ -181,7 +180,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
-    // Password unlock logic
+    
     document.getElementById("submit-password").addEventListener("click", async () => {
       const password = document.getElementById("password").value.trim();
       const res = await fetch(`/api/unlock?password=${password}`);
@@ -195,7 +194,7 @@
       }
     });
 
-    // Envelope + hearts animation
+    
     $(document).ready(function () {
       const envelope = $("#envelope");
       const btn_open = $("#open");
