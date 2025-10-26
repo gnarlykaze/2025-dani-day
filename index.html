@@ -43,8 +43,6 @@
         margin: -10em auto 0 auto;
       }
 
-      /* ============================================== Candle
-      */
 
       .cake {
         background: #ffffff;
@@ -78,8 +76,6 @@
         left: 0;
       }
   
-      /* ============================================== Fire
-      */
 
       .candle-flame {
         border-radius: 100%;
@@ -106,9 +102,6 @@
         animation: candle-flame 0.2s 6.5s infinite;
       }
 
-      /* ============================================== Animation Fire
-      */
-
       @keyframes candle-flame {
         0%, 100% {
           background: rgba(254, 248, 97, 0.5);
@@ -128,10 +121,9 @@
         }
       }
 
-/* ============================================== Carrots */
 #carrot-toppings {
-  opacity: 1; /* don’t fade in, just fall */
-  transform: translateY(-600px); /* starts way above screen */
+  opacity: 1; 
+  transform: translateY(-600px); 
   animation: carrotsFall 0.7s 5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   animation-play-state: paused;
 }
@@ -141,7 +133,7 @@
     transform: translateY(-600px);
   }
   80% {
-    transform: translateY(10px); /* tiny bounce */
+    transform: translateY(10px); 
   }
   100% {
     transform: translateY(0);
@@ -167,7 +159,7 @@
 
 @keyframes carrotFallLeft {
   0% { transform: translateY(-650px); }
-  80% { transform: translateY(12px); } /* tiny bounce */
+  80% { transform: translateY(12px); } 
   100% { transform: translateY(0); }
 }
 
@@ -194,7 +186,7 @@
           margin: 0.5em 0;
           opacity: 0;
   animation: fadeInText 1.5s forwards;
-  animation-delay: 7s; /* starts with confetti */
+  animation-delay: 7s; 
         }
 
 @keyframes fadeInText {
@@ -202,7 +194,7 @@
     opacity: 1;
   }
 }
-       /* =========== Confetti CSS (added, self-contained) =========== */
+       
        .confetti-piece {
         position: absolute;
         width: 8px;
@@ -230,10 +222,10 @@
           transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
         }
       }
-      /* Sparkle effect */
+   
       .sparkle {
   position: absolute;
-  width: 12px;   /* a bit bigger for star shape */
+  width: 12px;  
   height: 12px;
   background: white;
   opacity: 0;
@@ -241,7 +233,7 @@
   z-index: 5;
   box-shadow: 0 0 10px white, 0 0 20px #ffd700;
 
-  /* star shaped */
+ 
   clip-path: polygon(
     50% 0%, 
     61% 35%, 
@@ -270,7 +262,7 @@
   margin-top: 20px;
   opacity: 0;
   animation: fadeInImage 1s forwards;
-  animation-delay: 7s; /* waits until candle/carrot done */
+  animation-delay: 7s; 
 }
 
 @keyframes fadeInImage {
@@ -484,44 +476,43 @@
             const sparkle = document.createElement("div");
             sparkle.classList.add("sparkle");
       
-            // random position
             sparkle.style.top = `${Math.random() * window.innerHeight}px`;
             sparkle.style.left = `${Math.random() * window.innerWidth}px`;
       
-            // random delay
+         
             sparkle.style.animationDelay = `${Math.random() * 5}s`;
       
             document.body.appendChild(sparkle);
           }
         }
       
-        // make 20 sparkles scattered
+        
         createSparkles(20);
       </script>
       
 
-         <!-- ========== Confetti script (self-contained) ========== -->
+         
     <script>
         (function () {
-           // Function to create confetti pieces
+           
   function launchConfetti() {
     for (let i = 0; i < 50; i++) {
       const confetti = document.createElement("div");
       confetti.classList.add("confetti-piece");
 
-      // Randomize each piece’s trajectory
+     
       confetti.style.setProperty("--tx", `${Math.random() * 400 - 200}px`);
       confetti.style.setProperty("--ty", `${500 + Math.random() * 200}px`);
       confetti.style.setProperty("--rot", `${Math.random() * 720 - 360}deg`);
       confetti.style.left = `${Math.random() * window.innerWidth}px`;
       confetti.style.top = `0px`;
 
-      // Random colors
+    
       const colors = ["#FF6B6B", "#FFD93D", "#6BCB77", "#4D96FF", "#FF922B"];
       confetti.style.backgroundColor =
         colors[Math.floor(Math.random() * colors.length)];
 
-      // Random duration & delay so it looks more natural
+     
       const duration = 2 + Math.random() * 2; 
       const delay = Math.random() * 0.5; 
       confetti.style.animationDuration = `${duration}s`;
@@ -529,12 +520,12 @@
 
       document.body.appendChild(confetti);
 
-      // Removed after animation
+     
       setTimeout(() => confetti.remove(), (duration + delay) * 1000);
     }
   }
 
-  // Trigger confetti AFTER candle appears (candle starts at 6s)
+  
   setTimeout(launchConfetti, 7000); 
 })();
       </script>
@@ -548,7 +539,7 @@ function typeWriter(text, elementId, speed) {
     if (i < text.length) {
       const char = text.charAt(i);
       if (char === "\n") {
-        // insert a line break
+       
         document.getElementById(elementId).innerHTML += "<br>";
       } else {
         document.getElementById(elementId).innerHTML += char;
@@ -606,12 +597,12 @@ setTimeout(() => {
       </div>
         <script>
 window.addEventListener('load', () => {
-  // start cake animation
+
   document.querySelectorAll('.cake').forEach(el => {
     el.style.animationPlayState = 'running';
   });
 
-  // start carrot animations
+  
   const carrotIds = ['carrot-toppings', 'carrot-left', 'carrot-middle', 'carrot-right'];
   carrotIds.forEach(id => {
     const el = document.getElementById(id);
